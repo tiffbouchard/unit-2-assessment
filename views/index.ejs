@@ -2,10 +2,36 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <h1>To Do List</h1>
+    <% if (todos.length) { %>
+    <ul>
+      <% todos.forEach(function(t) { %>
+      <li>
+        <%= t.todo %> - <%= t.done ? 'Done' : 'Not Done' %>
+        <form
+          action="/<%= t.id %>?_method=DELETE"
+          id="delete-form"
+          method="POST"
+        >
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+
+      <% }) %>
+    </ul>
+    <% } else { %>
+    <h3>There are no To Dos yet!</h3>
+    <% } %>
+
+    <!-- if todos, for each and display, if no todos - There are no To Dos yet! -->
+
+    <hr />
+    <form action="/add" method="POST">
+      <input name="todo" type="text" required />
+      <input type="submit" value="ADD TO DO" />
+    </form>
   </body>
 </html>
