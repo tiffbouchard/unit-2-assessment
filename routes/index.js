@@ -19,8 +19,11 @@ router.post("/add", function (req, res, next) {
 });
 
 router.delete("/:id", function (req, res, next) {
-  const idx = Todo.findIndex((todo) => todo.id === req.params.id);
-  Todo.splice(idx, 1);
+  const id = req.params.id;
+  const index = Todo.findIndex(function (todo) {
+    return todo.id === parseInt(id);
+  });
+  Todo.splice(index, 1);
   res.redirect("/");
 });
 
