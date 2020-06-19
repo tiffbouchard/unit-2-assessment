@@ -14,25 +14,14 @@ router.post("/add", function (req, res, next) {
   req.body.todo = req.body.todo;
   req.body.id = Date.now() % 1000000;
   req.body.done = false;
-  // req.body.done = false;
   Todo.push(req.body);
-  console.log(Todo);
+  res.redirect("/");
+});
+
+router.delete("/:id", function (req, res, next) {
+  const idx = Todo.findIndex((todo) => todo.id === req.params.id);
+  Todo.splice(idx, 1);
   res.redirect("/");
 });
 
 module.exports = router;
-
-// function create(todo) {
-//   // Add the id
-//   todo.id = Date.now() % 1000000;
-//   // New todos wouldn't be done :)
-//   todo.done = false;
-//   todos.push(todo);
-// }
-
-// function create(req, res) {
-//   console.log(req.body);
-//   req.body.done = false;
-//   Todo.create(req.body);
-//   res.redirect("/todos");
-// }
